@@ -1,0 +1,60 @@
+article {
+    width: 100%;
+    display: flex;
+}
+
+article .postSection {
+    margin: 0 auto 0 25vw;
+    position: relative;
+    
+}
+
+article .postList {
+    width: 45vw;
+    list-style: none;
+    margin: 0 auto;
+}
+
+article .postList .post {
+    width: 98%;
+    margin: 2vh auto;
+    border: 1px solid #dcdcdc;
+    padding: 1%;
+    border-radius: 10px;
+    display: flex;
+    box-shadow: #d3d3d3 2px 2px 5px 3px;
+}
+
+article .postList .post .postUserId {
+    color: gray;
+}
+
+article .postList .post img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+article .postList .post .postDetail {
+    width: 600px;
+    margin-left: 10px;
+}
+
+article .postList .post .postDetail .postHeader {
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+article .postList .post .postDetail .postBody {
+    height: 10vh;
+    margin: 1vh auto;
+}
+
+article .postList .post .postDetail .hatchTime {
+    width: 100%;
+    justify-content: space-around;
+    display: flex;
+}
+
