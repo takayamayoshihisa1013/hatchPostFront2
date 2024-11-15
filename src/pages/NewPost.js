@@ -46,7 +46,6 @@ function NewPost() {
                 newPostForm && (
                     <section className="newPostSection">
                         <form className="newPostForm" onSubmit={handleSubmit}>
-                            <button className="formDelete" type="button" onClick={toggleForm}><i class="fa-solid fa-xmark"></i></button>
                             <p>何気ない事でもポストをしよう！</p>
                             <textarea placeholder="何を書きますか？" onChange={(e) => setPostContent(e.target.value)}></textarea>
                             <div className="formButton">

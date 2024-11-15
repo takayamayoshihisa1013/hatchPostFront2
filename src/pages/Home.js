@@ -47,7 +47,7 @@ function Home() {
                             <li className="post">
                                 <img src={testImage} className="postUserIcon"></img>
                                 <div className="postDetail">
-                                    <p className="postHeader"><span className="postUserName">{post[1]}</span><span className="postUserId">@{post[0]}</span></p>
+                                    <p className="postHeader"><a href={`profile?id=${post[0]}`}><span className="postUserName">{post[1]}</span><span className="postUserId">@{post[0]}</span></a></p>
                                     <p className="postBody">
                                         {post[2]}
                                     </p>
