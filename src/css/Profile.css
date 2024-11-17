@@ -55,6 +55,12 @@ section {
     margin-right: 10px;
 }
 
+.profile .iconAndButton .followState {
+    background-color: #AEC4E5;
+    border: none;
+    color: #696969;
+}
+
 .profile .iconAndButton .profileChat {
     width: 40px;
     height: 40px;

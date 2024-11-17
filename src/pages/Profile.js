@@ -7,6 +7,8 @@ import hatch from "./../images/hatch/hatch.png";
 import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
 // import ProfileSetting from "./ProfileSetting";
 import "./../css/ProfileSetting.css";
+import Search from "./Search";
+import { useSearchParams } from "react-router-dom";
 
 
 
@@ -37,6 +39,8 @@ function ProfileCheck({ toggleForm }) {
         }
     }
 
+
+
     return (
         <section className="profileSetting">
             <form onSubmit={SubmitForm}>
@@ -50,7 +54,7 @@ function ProfileCheck({ toggleForm }) {
                     <img src={testImage} className="changeProfileIcon"></img>
                 </label>
                 <p>ユーザーネーム</p>
-                <input type="text" placeholder="ユーザーネームを入力してください"  onChange={(e) => setChangeUsername(e.target.value)}></input>
+                <input type="text" placeholder="ユーザーネームを入力してください" onChange={(e) => setChangeUsername(e.target.value)}></input>
                 <p>プロフィール</p>
                 <textarea placeholder="プロフィールを入力しよう" onChange={(e) => setProfileText(e.target.value)}></textarea>
                 <button>変更する</button>
@@ -61,10 +65,33 @@ function ProfileCheck({ toggleForm }) {
 
 
 function Profile() {
+    // プロフィールデータ
     const [profileData, setProfileData] = useState([]);
+    // ポストデータ
     const [postList, setPostList] = useState([]);
+    // プロフィール変更データ
     const [profileSettingForm, setProfileSettingForm] = useState(false);
+    // 自分かどうか
     const [myself, setMyself] = useState(false);
+    // フォローされているか
+    const [followState, setFollowState] = useState(false);
+    // フォロー数、フォロワー数
+    const [followData, setFollowData] = useState([]);
+
+    // フォローのタンの色処理
+    const followHandle = (newFollowState) => {
+        setFollowState(newFollowState);
+    
+        setFollowData((prevFollowData) => {
+            const updatedFollowData = [...prevFollowData];
+            if (newFollowState) {
+                updatedFollowData[1]++; // フォロー数を増加
+            } else {
+                updatedFollowData[1]--; // フォロー数を減少
+            }
+            return updatedFollowData;
+        });
+    };
 
     // 表示非表示
     const toggleForm = () => {
@@ -95,7 +122,16 @@ function Profile() {
                 if (response.ok) {
                     setProfileData(resData.profileData);
                     setPostList(resData.postData);
-                    setMyself(resData["myself"])
+                    setMyself(resData.myself);
+                    setFollowData(resData.followData)
+                    // フォロー状態
+                    if (myself) {
+                        // 自分だったら出さない
+                        setFollowState("my");
+                    } else {
+                        // 自分ではなかったら出す
+                        setFollowState(resData.followState);
+                    }
                 } else {
                     alert("ポストを読み込ませんでした。")
                 }
@@ -106,7 +142,33 @@ function Profile() {
         PostData()
     }, [])
 
-
+    const submitFollow = async (e) => {
+        const followIdParam = new URLSearchParams(window.location.search);
+        const followUserId = followIdParam.get("id");
+        e.preventDefault();
+        // 先に変換後のフォロー状態にする
+        const newFollowState = !followState
+        const data = {
+            followId: followUserId
+        };
+        try {
+            const response = await fetch("http://localhost:5000/follow", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(data),
+            });
+            if (response.ok) {
+                followHandle(newFollowState);
+            } else {
+                alert("フォロー処理中にエラーが発生しました")
+            }
+        } catch {
+            alert("エラーが発生しました")
+        }
+    }
 
     return (
         <article>
@@ -120,14 +182,22 @@ function Profile() {
                     <img src={testImage} className="profileBackground"></img>
                     <div className="iconAndButton">
                         <img src={testImage} className="profileIcon"></img>
-                        <p><span className="bold">follow:</span><span className="normal">100</span></p>
-                        <p><span className="bold">follower:</span><span className="normal">1000</span></p>
-                        <button className="followButton" >フォローする</button>
+                        <p><a href={`follow?id=${profileData[0]}`}><span className="bold">follow:</span><span className="normal">{followData[0]}</span></a></p>
+                        <p><a href={`follow?id=${profileData[0]}`}><span className="bold">follower:</span><span className="normal">{followData[1]}</span></a></p>
+                        {
+                            followState !== "myself" && (
+                                followState ? (
+                                    <button className="followButton followState" onClick={submitFollow}>フォロー中</button>
+                                ) : (
+                                    <button className="followButton" onClick={submitFollow}>フォローする</button>
+                                )
+                            )
+                        }
                         <button className="profileChat"><i class="fa-solid fa-comments"></i></button>
                         {
-                            myself &&
-                            <button className="settingButton" onClick={toggleForm}><i class="fa-solid fa-user-gear"></i></button>
-
+                            myself && (
+                                <button className="settingButton" onClick={toggleForm}><i class="fa-solid fa-user-gear"></i></button>
+                            )
                         }
                     </div>
                     <p className="profileName">{profileData[1]}</p>

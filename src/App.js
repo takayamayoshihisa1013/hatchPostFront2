@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import Home from './pages/Home.js';
 import "./css/App.css";
 import Profile from './pages/Profile.js';
-import FollowAndFollower from './pages/FollowAndFollower.js';
+import Follow from './pages/Follow.js';
 import Chat from './pages/Chat.js';
 import Login from './pages/Login.js';
 import SignUp from './pages/SignUp.js';
@@ -50,7 +50,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/followAndFollower' element={<FollowAndFollower />} />
+          <Route path='/follow' element={<Follow />} />
           <Route path='/chat' element={<Chat />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />

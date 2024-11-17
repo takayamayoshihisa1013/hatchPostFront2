@@ -72,7 +72,7 @@ function RightNav() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to={"/followAndFollower"}>
+                                    <Link to={`/follow?id=${loginUserId}`}>
                                         <i class="fa-solid fa-users"></i>フォロー・フォロワー
                                     </Link>
                                 </li>
