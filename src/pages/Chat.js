@@ -1,100 +1,90 @@
-import React, {useState} from "react";
-import RightNav from "./RightNav";
-import "./../css/Chat.css";
+import React, { useEffect, useState } from "react";
 import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
-
 
 function Chat() {
 
-    
+    // チャットのデータ
+    const [chat, setChat] = useState([]);
+
+    useEffect(() => {
+        const friendParm = new URLSearchParams(window.location.search);
+        const friendId = friendParm.get("friendId");
+        const data = {
+            friendId: friendId
+        }
+        try {
+            const chatData = async () => {
+                const response = await fetch("http://localhost:5000/chat", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify(data)
+                })
+                const resData = await response.json();
+                if (response.ok) {
+                    setChat(resData.chatData)
+                }
+                else {
+                    alert("error")
+                }
+            }
+        } catch {
+
+        }
+
+
+    }, [])
 
     return (
-        <article>
-            
-            <div className="chatContent">
-                <section className="chatList">
-                    <h3 className="title">トーク</h3>
-                    <ul>
-                        <li>
-                            <img className="chatListUserIcon" src={testImage}></img>
-                            <div className="chatUser">
-                                <p className="chatListUserName"><span className="chatName">じゅんと</span><span className="lastChatTime">11:11</span></p>
-                                <p className="lastChat">おやおや、おやおやおやおやおや</p>
-                            </div>
-                        </li>
-                        <li>
-                            <img className="chatListUserIcon" src={testImage}></img>
-                            <div className="chatUser">
-                                <p className="chatListUserName"><span className="chatName">さし</span><span className="lastChatTime">11:11</span></p>
-                                <p className="lastChat">おやおや、おやおやおやおやおや</p>
-                            </div>
-                        </li>
-                        <li>
-                            <img className="chatListUserIcon" src={testImage}></img>
-                            <div className="chatUser">
-                                <p className="chatListUserName"><span className="chatName">かわべ</span><span className="lastChatTime">11:11</span></p>
-                                <p className="lastChat">おやおや、おやおやおやおやおや</p>
-                            </div>
-                        </li>
-                        <li>
-                            <img className="chatListUserIcon" src={testImage}></img>
-                            <div className="chatUser">
-                                <p className="chatListUserName"><span className="chatName">さくま</span><span className="lastChatTime">11:11</span></p>
-                                <p className="lastChat">おやおや、おやおやおやおやおや</p>
-                            </div>
-                        </li>
-                        <li>
-                            <img className="chatListUserIcon" src={testImage}></img>
-                            <div className="chatUser">
-                                <p className="chatListUserName"><span className="chatName">ふっくい</span><span className="lastChatTime">11:11</span></p>
-                                <p className="lastChat">おやおや、おやおやおやおやおや</p>
-                            </div>
-                        </li>
-                    </ul>
-                </section>
-                <section className="chat">
-                    <h3 className="title">じゅんと</h3>
-                    <ul>
-                        <li className="message friend">
-                            <img src={testImage} className="chatUserIcon"></img>
-                            <div>
-                                <p className="chatUserName">じゅんと</p>
-                                <p className="talk">あ</p>
-                            </div>
-                        </li>
-                        <li className="message my">
-                            <div>
-                                <p className="chatUserName">じゅんと</p>
-                                <p className="talk">あ</p>
-                            </div>
-                            <img src={testImage} className="chatUserIcon"></img>
-                        </li>
-                        <li className="message friend">
-                            <img src={testImage} className="chatUserIcon"></img>
-                            <div>
-                                <p className="chatUserName">じゅんと</p>
-                                <p className="talk">あ</p>
-                            </div>
-                        </li>
-                        <li className="message friend">
-                            <img src={testImage} className="chatUserIcon"></img>
-                            <div>
-                                <p className="chatUserName">じゅんと</p>
-                                <p className="talk">あ</p>
-                            </div>
-                        </li>
-                        <li className="message my">
-                            
-                            <div>
-                                <p className="chatUserName">じゅんと</p>
-                                <p className="talk">あ</p>
-                            </div>
-                            <img src={testImage} className="chatUserIcon"></img>
-                        </li>
-                    </ul>
-                </section>
-            </div>
-        </article>
+        <section className="chat">
+            <h3 className="title">じゅんと</h3>
+            <ul>
+                <li className="message friend">
+                    <img src={testImage} className="chatUserIcon"></img>
+                    <div>
+                        <p className="chatUserName">じゅんと</p>
+                        <p className="talk">あ</p>
+                    </div>
+                </li>
+                <li className="message my">
+                    <div>
+                        <p className="chatUserName">じゅんと</p>
+                        <p className="talk">あ</p>
+                    </div>
+                    <img src={testImage} className="chatUserIcon"></img>
+                </li>
+                <li className="message friend">
+                    <img src={testImage} className="chatUserIcon"></img>
+                    <div>
+                        <p className="chatUserName">じゅんと</p>
+                        <p className="talk">あ</p>
+                    </div>
+                </li>
+                <li className="message friend">
+                    <img src={testImage} className="chatUserIcon"></img>
+                    <div>
+                        <p className="chatUserName">じゅんと</p>
+                        <p className="talk">あ</p>
+                    </div>
+                </li>
+                <li className="message my">
+
+                    <div>
+                        <p className="chatUserName">じゅんと</p>
+                        <p className="talk">あ</p>
+                    </div>
+                    <img src={testImage} className="chatUserIcon"></img>
+                </li>
+
+            </ul>
+            <form className="newContentForm">
+                <input type="text"></input>
+                <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
+            </form>
+
+        </section>
     )
 }
 

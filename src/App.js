@@ -3,7 +3,7 @@ import Home from './pages/Home.js';
 import "./css/App.css";
 import Profile from './pages/Profile.js';
 import Follow from './pages/Follow.js';
-import Chat from './pages/Chat.js';
+import Chat from './pages/ChatList.js';
 import Login from './pages/Login.js';
 import SignUp from './pages/SignUp.js';
 import RightNav from './pages/RightNav.js';

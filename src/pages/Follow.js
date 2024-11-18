@@ -68,7 +68,6 @@ function FollowAndFollower() {
                                         </li>
                                     ))
                                 }
-
                             </ul>
                         </section>
                     ) : (
