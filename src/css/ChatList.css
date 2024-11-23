@@ -191,9 +191,10 @@
 }
 
 .chat .newContentForm input {
-    width: 31vw;
+    width: 30vw;
     display: block;
-    height: 5vh;
+    height: 3vh;
+    padding: 1vh 0.5vw;
 }
 
 .chat .newContentForm button {

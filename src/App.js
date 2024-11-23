@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import Home from './pages/Home.js';
+import PostList from './pages/PostList.js';
 import "./css/App.css";
 import Profile from './pages/Profile.js';
 import Follow from './pages/Follow.js';
@@ -7,6 +7,7 @@ import Chat from './pages/ChatList.js';
 import Login from './pages/Login.js';
 import SignUp from './pages/SignUp.js';
 import RightNav from './pages/RightNav.js';
+import Post from './pages/Post.js';
 
 function RightNavWrapper() {
   // useLocation()はRouterコンポーネントの中で使わな居行けないので新しく
@@ -48,12 +49,13 @@ function App() {
         <RightNavWrapper />
 
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<PostList />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/follow' element={<Follow />} />
           <Route path='/chat' element={<Chat />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/post" element={<Post />} />
         </Routes>
       </main>
     </Router>

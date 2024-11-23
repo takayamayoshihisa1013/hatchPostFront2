@@ -1,4 +1,4 @@
-.newPostSection {
+.newCommentSection {
     width: 100%;
     background-color: rgba(0, 0, 0, .5);
     height: 100vh;
@@ -8,7 +8,7 @@
     z-index: 1;
 }
 
-.newPostButton {
+.newCommentButton {
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -22,7 +22,7 @@
     z-index: 0;
 }
 
-.newPostSection .formDelete {
+.newCommentSection .formDelete {
     position: absolute;
     width: 30px;
     height: 30px;
@@ -35,7 +35,7 @@
     color: #FFFF;
 }
 
-.newPostSection .newPostForm {
+.newCommentSection .newCommentForm {
     width: 660px;
     padding: 1%;
     background-color: #FFFF;
@@ -44,7 +44,7 @@
     position: relative;
 }
 
-.newPostSection .newPostForm textarea {
+.newCommentSection .newCommentForm textarea {
     /* display: none; */
     width: 98%;
     padding: 1%;
@@ -55,18 +55,18 @@
     max-height: 50vh;
 }
 
-.newPostSection .newPostForm .formButton {
+.newCommentSection .newCommentForm .formButton {
     display: flex;
     justify-content: space-between;
 }
 
-.newPostSection .newPostForm .formImageButton {
+.newCommentSection .newCommentForm .formImageButton {
     display: none;
 }
 
 
 
-.newPostSection .newPostForm .postButton, .newPostSection .newPostForm .formImageLabel  {
+.newCommentSection .newCommentForm .commentButton, .newCommentSection .newCommentForm .formImageLabel  {
     width: 320px;
     height: 40px;
     border-radius: 10px;
@@ -78,10 +78,10 @@
     
 }
 
-.newPostSection .newPostForm .postButton {
+.newCommentSection .newCommentForm .commentButton {
     background-color:#FC9D9D ;
 }
 
-.newPostSection .newPostForm .formImageLabel {
+.newCommentSection .newCommentForm .formImageLabel {
     background-color: #AAD6EC;
 }

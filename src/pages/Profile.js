@@ -8,9 +8,7 @@ import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
 // import ProfileSetting from "./ProfileSetting";
 import "./../css/ProfileSetting.css";
 import Search from "./Search";
-import { useSearchParams } from "react-router-dom";
-
-
+import { useLocation } from "react-router-dom";
 
 function ProfileCheck({ toggleForm }) {
 
@@ -38,8 +36,6 @@ function ProfileCheck({ toggleForm }) {
             alert("変更中にエラーが発生しました")
         }
     }
-
-
 
     return (
         <section className="profileSetting">
@@ -77,11 +73,13 @@ function Profile() {
     const [followState, setFollowState] = useState(false);
     // フォロー数、フォロワー数
     const [followData, setFollowData] = useState([]);
+    // ページの更新をuseEffectで見るためのもの。パラメータが変わった場合にページをuseEffectで更新する役割
+    const location = useLocation();
 
     // フォローのタンの色処理
     const followHandle = (newFollowState) => {
         setFollowState(newFollowState);
-    
+
         setFollowData((prevFollowData) => {
             const updatedFollowData = [...prevFollowData];
             if (newFollowState) {
@@ -99,11 +97,12 @@ function Profile() {
         // alert(profileSettingForm)
     }
 
+    // URLからidパラメータを取得する
+    const idParams = new URLSearchParams(window.location.search);
+    const profileUserId = idParams.get("id");
+
     // プロフィールの人のポストを取ってくる
     useEffect(() => {
-        // URLからidパラメータを取得する
-        const idParams = new URLSearchParams(window.location.search);
-        const profileUserId = idParams.get("id");
         const data = {
             // アクセスされたアカウントのIDをFlaskに送る
             profileUserId: profileUserId
@@ -125,7 +124,7 @@ function Profile() {
                     setMyself(resData.myself);
                     setFollowData(resData.followData)
                     // フォロー状態
-                    if (myself) {
+                    if (resData.myself) {
                         // 自分だったら出さない
                         setFollowState("my");
                     } else {
@@ -139,17 +138,18 @@ function Profile() {
                 alert("エラーが発生しました。")
             }
         };
-        PostData()
-    }, [])
+        if (profileUserId) {
+            PostData()
+        }
+        // クエリパラメータが変わった場合更新。（.searchはクエリパラメータの部分）
+    }, [location.search])
 
     const submitFollow = async (e) => {
-        const followIdParam = new URLSearchParams(window.location.search);
-        const followUserId = followIdParam.get("id");
         e.preventDefault();
         // 先に変換後のフォロー状態にする
         const newFollowState = !followState
         const data = {
-            followId: followUserId
+            followId: profileUserId
         };
         try {
             const response = await fetch("http://localhost:5000/follow", {
@@ -170,6 +170,29 @@ function Profile() {
         }
     }
 
+    // チャットの追加
+    const makeNewChat = async () => {
+        const data = {
+            friendId:profileUserId
+        }
+        try {
+            const response = await fetch("http://localhost:5000/makeNewChat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify(data),
+            })
+            const resData = response.json()
+            if (response.ok) {
+                window.location.href = `http://localhost:3000/chat?id=${profileUserId}`;
+            }
+        } catch {
+            alert("error")
+        }
+    }
+
     return (
         <article>
             <div className="content">
@@ -185,7 +208,7 @@ function Profile() {
                         <p><a href={`follow?id=${profileData[0]}`}><span className="bold">follow:</span><span className="normal">{followData[0]}</span></a></p>
                         <p><a href={`follow?id=${profileData[0]}`}><span className="bold">follower:</span><span className="normal">{followData[1]}</span></a></p>
                         {
-                            followState !== "myself" && (
+                            !myself && (
                                 followState ? (
                                     <button className="followButton followState" onClick={submitFollow}>フォロー中</button>
                                 ) : (
@@ -193,10 +216,11 @@ function Profile() {
                                 )
                             )
                         }
-                        <button className="profileChat"><i class="fa-solid fa-comments"></i></button>
                         {
-                            myself && (
+                            myself ? (
                                 <button className="settingButton" onClick={toggleForm}><i class="fa-solid fa-user-gear"></i></button>
+                            ) : (
+                                <button className="profileChat"><i class="fa-solid fa-comments" onClick={makeNewChat}></i></button>
                             )
                         }
                     </div>
