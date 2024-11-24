@@ -173,7 +173,7 @@ function Profile() {
     // チャットの追加
     const makeNewChat = async () => {
         const data = {
-            friendId:profileUserId
+            friendId: profileUserId
         }
         try {
             const response = await fetch("http://localhost:5000/makeNewChat", {
@@ -208,19 +208,32 @@ function Profile() {
                         <p><a href={`follow?id=${profileData[0]}`}><span className="bold">follow:</span><span className="normal">{followData[0]}</span></a></p>
                         <p><a href={`follow?id=${profileData[0]}`}><span className="bold">follower:</span><span className="normal">{followData[1]}</span></a></p>
                         {
-                            !myself && (
-                                followState ? (
-                                    <button className="followButton followState" onClick={submitFollow}>フォロー中</button>
+                            // 自分かどうか
+                            !myself ? (
+                                // ふぉろーしているかどうか
+                                followState === true ? (
+                                    <>
+                                        <button className="followButton followState" onClick={submitFollow}>フォロー中</button>
+                                        <button className="profileChat"><i className="fa-solid fa-comments" onClick={makeNewChat}></i></button>
+                                    </>
                                 ) : (
-                                    <button className="followButton" onClick={submitFollow}>フォローする</button>
+                                    followState === "notLogin" ? (
+                                        <>
+                                            <button className="followButton" onClick={() => window.location = "http://localhost:3000/login"}>フォローする</button>
+                                            <button className="profileChat"><i className="fa-solid fa-comments" onClick={() => window.location = "http://localhost:3000/login"}></i></button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button className="followButton" onClick={submitFollow}>フォローする</button>
+                                            <button className="profileChat"><i className="fa-solid fa-comments" onClick={makeNewChat}></i></button>
+                                        </>
+                                    )
+
                                 )
-                            )
-                        }
-                        {
-                            myself ? (
-                                <button className="settingButton" onClick={toggleForm}><i class="fa-solid fa-user-gear"></i></button>
                             ) : (
-                                <button className="profileChat"><i class="fa-solid fa-comments" onClick={makeNewChat}></i></button>
+
+                                <button className="settingButton" onClick={toggleForm}><i class="fa-solid fa-user-gear"></i></button>
+
                             )
                         }
                     </div>

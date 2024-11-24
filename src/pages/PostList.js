@@ -95,13 +95,16 @@ function PostList() {
 
                                         <p onClick={() => heartHandle(post[4])}>
                                             {
-                                                
-                                                // いいね状態
-                                                post[6] == 1 ? (
-                                                    
-                                                    <span className="icon"><i class="fa-solid fa-heart"></i></span>
+                                                post[6] ? (
+                                                    // いいね状態
+                                                    post[6] == 1 ? (
+                                                        
+                                                        <span className="icon"><i class="fa-solid fa-heart"></i></span>
+                                                    ) : (
+                                                        <span className="icon"><i class="fa-regular fa-heart"></i></span>
+                                                    )
                                                 ) : (
-                                                    <span className="icon"><i class="fa-regular fa-heart"></i></span>
+                                                    <span className="icon"><a href="http://localhost:3000/login"><i class="fa-regular fa-heart"></i></a></span>
                                                 )
                                             }
                                             <span className="num">{post[5]}</span></p>
