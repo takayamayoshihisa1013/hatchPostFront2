@@ -59,4 +59,4 @@ jobs:
           app-name: 'HatchPost'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FBB6DC2B2C2E4751B034962C06743774 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_33369BA5565E4125A14A4ED6F0F02A42 }}
