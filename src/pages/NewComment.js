@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./../css/NewComment.css";
 import Config from "../Config";
 
+
 function NewComment() {
     // コメントフォームを開いてるか閉じてるか
     const [commentForm, setCommentForm] = useState(false);
