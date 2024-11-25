@@ -95,7 +95,6 @@ function PostList() {
                                                 post[6] === 1 || post[6] === 0 ? (
                                                     // いいね状態
                                                     post[6] == 1 ? (
-                                                        
                                                         <span className="icon"><i class="fa-solid fa-heart"></i></span>
                                                     ) : (
                                                         <span className="icon"><i class="fa-regular fa-heart"></i></span>

@@ -32,7 +32,8 @@ function ProfileCheck({ toggleForm }) {
         });
         // const resChangeProfile = await response.json();
         if (response.ok) {
-            toggleForm()
+            // toggleForm()
+            window.location.reload();
         } else {
             alert("変更中にエラーが発生しました")
         }
