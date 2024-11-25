@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import "./../css/PostList.css";
 import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
 import Search from "./Search.js";
-import RightNav from "./RightNav.js";
 import NewPost from "./NewPost.js";
 import Config from "../Config.js";
 
