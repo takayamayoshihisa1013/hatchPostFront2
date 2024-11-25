@@ -2,6 +2,7 @@ import React, { useState, useEffect, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
 import "./../css/RightNav.css";
+import Config from "../Config";
 
 function RightNav() {
 
@@ -14,7 +15,7 @@ function RightNav() {
     useEffect(() => {
         const rightUserProfile = async () => {
             try {
-                const response = await fetch("http://localhost:5000/rightProfile", {
+                const response = await fetch(`${Config.azureBackUrl}/rightProfile`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

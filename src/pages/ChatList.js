@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react
 import "./../css/ChatList.css";
 import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
 import Chat from "./Chat.js";
+import Config from "../Config.js";
 
 function ChatList() {
 
@@ -11,7 +12,7 @@ function ChatList() {
     useEffect(() => {
         const chatListData = async () => {
             try {
-                const response = await fetch("http://localhost:5000/chatListData", {
+                const response = await fetch(`${Config.azureBackUrl}/chatListData`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

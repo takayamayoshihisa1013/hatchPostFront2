@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./../css/PostList.css";
-import egg from "./../images/hatch/egg.png";
-import clackEgg from "./../images/hatch/clackEgg.png";
-import hatch from "./../images/hatch/hatch.png";
 import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
 import Search from "./Search.js";
 import RightNav from "./RightNav.js";
 import NewPost from "./NewPost.js";
+import Config from "../Config.js";
 
 function PostList() {
-
+    // alert(azureUrl);
     const [postList, setPostList] = useState([])
     useEffect(() => {
-
         const postData = async () => {
             try {
-                const response = await fetch("http://localhost:5000/postData", {
+                const response = await fetch(`${Config.azureBackUrl}/postData`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -45,7 +42,7 @@ function PostList() {
             postId: postId
         }
         try {
-            const response = await fetch("http://localhost:5000/heart", {
+            const response = await fetch(`${Config.azureBackUrl}/heart`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -95,7 +92,7 @@ function PostList() {
 
                                         <p onClick={() => heartHandle(post[4])}>
                                             {
-                                                post[6] ? (
+                                                post[6] === 1 || post[6] === 0 ? (
                                                     // いいね状態
                                                     post[6] == 1 ? (
                                                         

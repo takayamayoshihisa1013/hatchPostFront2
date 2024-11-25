@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./../css/Post.css";
 import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
 import NewComment from "./NewComment";
+import Config from "../Config";
 
 function Post() {
 
@@ -19,7 +20,7 @@ function Post() {
                 postId: postId
             }
             try {
-                const response = await fetch("http://localhost:5000/comment", {
+                const response = await fetch(`${Config.azureBackUrl}/comment`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

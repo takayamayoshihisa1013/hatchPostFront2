@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
+import Config from "../Config";
 
 function Chat() {
 
@@ -20,7 +21,7 @@ function Chat() {
             friendId: friendId
         }
         try {
-            const response = await fetch("http://localhost:5000/chat", {
+            const response = await fetch(`${Config.azureBackUrl}/chat`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,7 +50,7 @@ function Chat() {
             newChatContent: newChatContent
         }
         try {
-            const response = await fetch("http://localhost:5000/newChatContent", {
+            const response = await fetch(`${Config.azureBackUrl}/newChatContent`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

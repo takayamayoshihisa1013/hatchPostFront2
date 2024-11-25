@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./../css/NewComment.css";
+import Config from "../Config";
 
 function NewComment() {
     // コメントフォームを開いてるか閉じてるか
@@ -23,7 +24,7 @@ function NewComment() {
             commentContent: commentContent
         }
         try {
-            const response = await fetch("http://localhost:5000/newComment", {
+            const response = await fetch(`${Config.azureBackUrl}/newComment`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -9,6 +9,7 @@ import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
 import "./../css/ProfileSetting.css";
 import Search from "./Search";
 import { useLocation } from "react-router-dom";
+import Config from "../Config";
 
 function ProfileCheck({ toggleForm }) {
 
@@ -21,7 +22,7 @@ function ProfileCheck({ toggleForm }) {
             changeUsername: changeUsername,
             changeProfileText: changeProfileText
         }
-        const response = await fetch("http://localhost:5000/changeProfile", {
+        const response = await fetch(`${Config.azureBackUrl}/changeProfile`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -109,7 +110,7 @@ function Profile() {
         }
         const PostData = async () => {
             try {
-                const response = await fetch("http://localhost:5000/profile", {
+                const response = await fetch(`${Config.azureBackUrl}/profile`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -152,7 +153,7 @@ function Profile() {
             followId: profileUserId
         };
         try {
-            const response = await fetch("http://localhost:5000/follow", {
+            const response = await fetch(`${Config.azureBackUrl}/follow`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -176,7 +177,7 @@ function Profile() {
             friendId: profileUserId
         }
         try {
-            const response = await fetch("http://localhost:5000/makeNewChat", {
+            const response = await fetch(`${Config.azureBackUrl}/makeNewChat`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

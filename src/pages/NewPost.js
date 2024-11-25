@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./../css/NewPost.css";
+import Config from "../Config";
 
 function NewPost() {
 
@@ -19,7 +20,7 @@ function NewPost() {
             postContent: postContent
         }
         try {
-            const response = await fetch("http://localhost:5000/newPost", {
+            const response = await fetch(`${Config.azureBackUrl}/newPost`, {
                 method:"POST",
                 headers: {
                     "Content-Type": "application/json",

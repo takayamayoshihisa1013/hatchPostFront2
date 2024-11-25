@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./../css/Follow.css";
 import testImage from "./../images/test/mikakunintouhikousyoujo.jpg";
+import Config from "../Config";
 
 function FollowAndFollower() {
 
@@ -24,7 +25,7 @@ function FollowAndFollower() {
         }
         const listGet = async () => {
             try {
-                const response = await fetch("http://localhost:5000/followList", {
+                const response = await fetch(`${Config.azureBackUrl}/followList`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
